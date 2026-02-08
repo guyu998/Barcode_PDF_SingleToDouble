@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.singletodouble.web.mapper.base.MoAbnormalHandleUserMapper">
+
+    <resultMap type="MoAbnormalHandleUser" id="MoAbnormalHandleUserResult">
+        <id property="userQr" column="user_qr"/>
+        <result property="userName" column="user_name"/>
+        <result property="userType" column="user_type"/>
+        <result property="useStatus" column="use_status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="baseColumns">
+		user_qr,user_name,user_type,use_status,create_by,create_time,update_by,update_time
+    </sql>
+    
+    <sql id="baseSearch">
+        select <include refid="baseColumns"/>
+        from mo_abnormal_handle_user
+    </sql>
+
+    <select id="searchList" parameterType="MoAbnormalHandleUser" resultMap="MoAbnormalHandleUserResult">
+		<include refid="baseSearch"/>   
+        <where>
+        	<if test="userQr != null and userQr != ''"> and user_qr = #{userQr}</if>
+        	<if test="userName != null and userName != ''"> and user_name like CONCAT('%',#{userName},'%')</if>
+        	<if test="userType != null and userType != ''"> and locate(CONCAT(',', #{userType}, ',') , CONCAT(',', user_type,',')) > 0</if>
+        	<if test="useStatus != null and useStatus != 0"> and use_status = #{useStatus}</if>
+        	<if test="searchValue != null and searchValue != ''"> and (user_qr like CONCAT('%',#{searchValue},'%') or user_name like CONCAT('%',#{searchValue},'%'))</if>        	
+        </where>
+    </select>
+
+    <select id="searchUserById" parameterType="String" resultMap="MoAbnormalHandleUserResult">
+		<include refid="baseSearch"/>
+        where user_qr = #{userQr}
+    </select>
+
+    <insert id="insertUser" parameterType="MoAbnormalHandleUser">
+        insert into mo_abnormal_handle_user(user_qr,user_name,user_type,use_status,create_by,create_time)
+        values(#{userQr}, #{userName}, #{userType}, #{useStatus}, #{createBy}, Now())
+    </insert>
+    
+	<insert id="insertUserList" parameterType="java.util.List">
+	    replace into mo_abnormal_handle_user(user_qr,user_name,user_type,use_status,create_by,create_time) values
+	    <foreach collection="list" item="t" index="index" separator=","> 
+	        (#{t.userQr}, #{t.userName}, #{t.userType}, #{t.useStatus}, #{t.createBy}, Now())
+	    </foreach>
+	</insert>    
+
+    <update id="updateUser" parameterType="MoAbnormalHandleUser">
+        update mo_abnormal_handle_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="userType != null and userType != ''">user_type = #{userType},</if>
+            <if test="useStatus != null and useStatus != 0">use_status = #{useStatus},</if>
+			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+			<if test="updateBy != null and updateBy != ''">update_time = Now(),</if>
+        </trim>
+        where user_qr = #{userQr}
+    </update>
+     
+    <update id="deleteUserById" parameterType="String">
+        delete from mo_abnormal_handle_user where user_qr = #{userQr}
+    </update>
+    
+</mapper>
