@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.singletodouble.web.mapper.task.MoTaskMaterialMapper">
+    
+    <resultMap type="MoTaskMaterial" id="MoTaskMaterialResult">
+        <id property="taskId"    column="task_id"    />
+        <id property="dataNo"    column="data_no"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="backNo"    column="back_no"    />
+        <result property="trEntryDate"    column="tr_entry_date"    />
+        <result property="seqNo"    column="seq_no"    />
+        <result property="orderCode"    column="order_code"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="boxCount"    column="box_count"    />
+        <result property="entryTargetBoxCount"    column="entry_target_box_count"    />
+        <result property="publishDate"    column="publish_date"    />
+        <result property="custMatNo"    column="cust_mat_no"    />
+        <result property="makerMatNo"    column="maker_mat_no"    />
+        <result property="custMatName"    column="cust_mat_name"    />
+        <result property="custBackNo"    column="cust_back_no"    />
+        <result property="custSnp"    column="cust_snp"    />
+        <result property="custQrImage"    column="cust_qr_image"    />
+        <result property="custWc"    column="cust_wc"    />
+        <result property="custPlacePos"    column="cust_place_pos"    />
+        <result property="custBoxType"    column="cust_box_type"    />
+        <result property="lineName"    column="line_name"    />
+        <result property="batchNo"    column="batch_no"    />
+        <result property="custName"    column="cust_name"    />
+        <result property="custColorCode"    column="cust_color_code"    />
+        <result property="kdNo"    column="kd_no"    />
+        <result property="entryPlaceNo"    column="entry_place_no"    />
+        <result property="entryDate"    column="entry_date"    />
+        <result property="tipNo"    column="tip_no"    />
+        <result property="entryTime"    column="entry_time"    />
+        <result property="outDate"    column="out_date"    />
+        <result property="trayNo"    column="tray_no"    />
+        <result property="memo"    column="memo"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <!-- 配置一对多关联：-->
+        <collection property="bomList" ofType="com.singletodouble.web.domain.base.MoMaterialBom">
+	        <id property="makerMatNo"    column="maker_mat_no1"    />
+	        <id property="custMatNo"    column="cust_mat_no1"    />
+	        <id property="custColorCode"    column="cust_color_code1"    />
+	        <id property="orderNo"    column="order_no1"    />
+	        <result property="partName"    column="part_name"    />
+	        <result property="backNo"    column="back_no1"    />
+        </collection>        
+    </resultMap>
+
+    <sql id="selectMoTaskMaterialVo">
+        select *
+        from mo_task_material
+    </sql>
+
+    <select id="searchList" parameterType="MoTaskMaterial" resultMap="MoTaskMaterialResult">
+        <include refid="selectMoTaskMaterialVo"/>
+        <where>
+        	<if test="taskId != null and taskId != '' "> and task_id = #{taskId}</if>
+        	<if test="dataNo != null and dataNo != 0 "> and data_no = #{dataNo}</if>
+            <if test="serialNumber != null and serialNumber != '' "> and serial_number = #{serialNumber}</if>
+            <if test="backNo != null  and backNo != ''"> and back_no = #{backNo}</if>
+            <if test="trEntryDate != null  and trEntryDate != ''"> and tr_entry_date = #{trEntryDate}</if>
+            <if test="seqNo != null  and seqNo != ''"> and seq_no = #{seqNo}</if>
+            <if test="orderCode != null  and orderCode != ''"> and order_code = #{orderCode}</if>
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="publishDate != null  and publishDate != ''"> and publish_date = #{publishDate}</if>
+            <if test="custMatNo != null  and custMatNo != ''"> and cust_mat_no = #{custMatNo}</if>
+            <if test="makerMatNo != null  and makerMatNo != ''"> and maker_mat_no = #{makerMatNo}</if>
+            <if test="custSnp != null  and custSnp != ''"> and cust_snp = #{custSnp}</if>
+            <if test="lineName != null  and lineName != ''"> and line_name like concat('%', #{lineName}, '%')</if>
+            <if test="custColorCode != null  and custColorCode != ''"> and cust_color_code = #{custColorCode}</if>
+        </where>
+        order by data_no
+    </select>
+    
+    <select id="searchDataById" parameterType="MoTaskMaterial" resultMap="MoTaskMaterialResult">
+        <include refid="selectMoTaskMaterialVo"/>
+        where task_id = #{taskId} and data_no = #{dataNo}
+    </select>
+        
+    <insert id="insertData" parameterType="MoTaskMaterial">
+        insert into mo_task_material(task_id, data_no, serial_number, back_no, tr_entry_date, 
+        seq_no, order_code, order_no, box_count, entry_target_box_count, publish_date, 
+        cust_mat_no, maker_mat_no, cust_mat_name, cust_back_no, cust_snp, cust_qr_image, 
+        cust_wc, cust_place_pos, cust_box_type, line_name, batch_no, cust_name,cust_color_code, 
+        kd_no, entry_place_no, entry_date, tip_no, entry_time, out_date, tray_no, memo, 
+        create_by, create_time)
+        values(#{taskId},#{dataNo},#{serialNumber},#{backNo},#{trEntryDate},
+        #{seqNo},#{orderCode},#{orderNo},#{boxCount},#{entryTargetBoxCount},#{publishDate},
+        #{custMatNo},#{makerMatNo},#{custMatName},#{custBackNo},#{custSnp},#{custQrImage},
+        #{custWc},#{custPlacePos},#{custBoxType},#{lineName},#{batchNo},#{custName},#{custColorCode},
+        #{kdNo},#{entryPlaceNo},#{entryDate},#{tipNo},#{entryTime},#{outDate},#{trayNo},#{memo},
+        #{createBy},NOW())
+    </insert>
+    
+	<insert id="insertDataList" parameterType="java.util.List">
+		insert into mo_task_material(task_id, data_no, serial_number, back_no, tr_entry_date, 
+        seq_no, order_code, order_no, box_count, entry_target_box_count, publish_date, 
+        cust_mat_no, maker_mat_no, cust_mat_name, cust_back_no, cust_snp, cust_qr_image, 
+        cust_wc, cust_place_pos, cust_box_type, line_name, batch_no, cust_name,cust_color_code, 
+        kd_no, entry_place_no, entry_date, tip_no, entry_time, out_date, tray_no,memo, 
+        create_by, create_time)
+        values
+	    <foreach collection="list" item="t" index="index" separator=","> 
+	        (#{t.taskId}, #{t.dataNo},#{t.serialNumber},#{t.backNo},#{t.trEntryDate},
+	         #{t.seqNo}, #{t.orderCode},#{t.orderNo},#{t.boxCount},#{t.entryTargetBoxCount},
+	         #{t.publishDate}, #{t.custMatNo},#{t.makerMatNo},#{t.custMatName},#{t.custBackNo},
+	         #{t.custSnp}, #{t.custQrImage},#{t.custWc},#{t.custPlacePos},#{t.custBoxType},
+	         #{t.lineName}, #{t.batchNo},#{t.custName},#{t.custColorCode},#{t.kdNo},
+	         #{t.entryPlaceNo}, #{t.entryDate},#{t.tipNo},#{t.entryTime},#{t.outDate},#{t.trayNo},
+	         #{t.memo}, #{t.createBy},NOW())
+	    </foreach>
+	</insert>    
+
+    <update id="updateData" parameterType="MoTaskMaterial">
+        update mo_task_material
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="serialNumber != null">serial_number = #{serialNumber},</if>
+            <if test="backNo != null">back_no = #{backNo},</if>
+            <if test="trEntryDate != null">tr_entry_date = #{trEntryDate},</if>
+            <if test="seqNo != null">seq_no = #{seqNo},</if>
+            <if test="orderCode != null">order_code = #{orderCode},</if>
+            <if test="orderNo != null">order_no = #{orderNo},</if>
+            <if test="boxCount != null">box_count = #{boxCount},</if>
+            <if test="entryTargetBoxCount != null">entry_target_box_count = #{entryTargetBoxCount},</if>
+            <if test="publishDate != null">publish_date = #{publishDate},</if>
+            <if test="custMatNo != null">cust_mat_no = #{custMatNo},</if>
+            <if test="makerMatNo != null">maker_mat_no = #{makerMatNo},</if>
+            <if test="custMatName != null">cust_mat_name = #{custMatName},</if>
+            <if test="custBackNo != null">cust_back_no = #{custBackNo},</if>
+            <if test="custSnp != null">cust_snp = #{custSnp},</if>
+            <if test="custQrImage != null">cust_qr_image = #{custQrImage},</if>
+            <if test="custWc != null">cust_wc = #{custWc},</if>
+            <if test="custPlacePos != null">cust_place_pos = #{custPlacePos},</if>
+            <if test="custBoxType != null">cust_box_type = #{custBoxType},</if>
+            <if test="lineName != null">line_name = #{lineName},</if>
+            <if test="batchNo != null">batch_no = #{batchNo},</if>
+            <if test="custName != null">cust_name = #{custName},</if>
+            <if test="custColorCode != null">cust_color_code = #{custColorCode},</if>
+            <if test="kdNo != null">kd_no = #{kdNo},</if>
+            <if test="entryPlaceNo != null">entry_place_no = #{entryPlaceNo},</if>
+            <if test="entryDate != null">entry_date = #{entryDate},</if>
+            <if test="tipNo != null">tip_no = #{tipNo},</if>
+            <if test="entryTime != null">entry_time = #{entryTime},</if>
+            <if test="outDate != null">out_date = #{outDate},</if>
+            <if test="trayNo != null">tray_no = #{trayNo},</if>
+            <if test="memo != null">memo = #{memo},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateBy != null">update_time = NOW(),</if>
+        </trim>
+        where task_id = #{taskId} and data_no = #{dataNo}
+    </update>
+
+    <delete id="deleteDataById" parameterType="MoTaskMaterial">
+        delete from mo_task_material
+        <where>
+        	<if test="taskId != null  and taskId != ''"> and task_id = #{taskId}</if>
+        	<if test="dataNo != null  and dataNo != 0"> and data_no = #{dataNo}</if>
+        </where>
+    </delete>
+    
+    <select id="searchListOnMultiNo" parameterType="java.util.List" resultMap="MoTaskMaterialResult">
+   		select a.*, b.maker_mat_no as maker_mat_no1, b.cust_mat_no as cust_mat_no1, b.cust_color_code as cust_color_code1,
+        b.order_no as order_no1, b.part_name, b.back_no as back_no1
+        from mo_task_material a left join mo_material_bom b on a.maker_mat_no=b.maker_mat_no and a.cust_mat_no=b.cust_mat_no and a.cust_color_code=b.cust_color_code
+	    <where>
+	        <if test="dataList != null and dataList.size() > 0">
+	            AND 
+	            <foreach collection="dataList" item="item" open="(" separator="OR" close=")">
+	                a.task_id = #{item.taskId} and a.data_no = #{item.dataNo}
+	            </foreach>
+	        </if>
+	    </where>
+        order by a.data_no asc
+    </select>
+    
+ 	<select id="searchListOnTask" parameterType="String" resultMap="MoTaskMaterialResult">
+   		select a.*, b.maker_mat_no as maker_mat_no1, b.cust_mat_no as cust_mat_no1, b.cust_color_code as cust_color_code1,
+        b.order_no as order_no1, b.part_name, b.back_no as back_no1
+        from mo_task_material a left join mo_material_bom b on a.maker_mat_no=b.maker_mat_no and a.cust_mat_no=b.cust_mat_no and a.cust_color_code=b.cust_color_code
+        where a.task_id = #{taskId}
+        order by a.data_no asc
+    </select>    
+
+</mapper>

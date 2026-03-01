@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.singletodouble.web.mapper.base.MoCustomerMapper">
+    
+    <resultMap type="MoCustomer" id="MoCustomerResult">
+        <id property="customerCode"    		column="customer_code"    />
+        <result property="customerName"    	column="customer_name"    />
+        <result property="createBy"    		column="create_by"    />
+        <result property="createTime"    	column="create_time"    />
+        <result property="updateBy"    		column="update_by"    />
+        <result property="updateTime"    	column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMoCustomerVo">
+        select customer_code, customer_name, create_by, create_time, update_by, update_time from mo_customer
+    </sql>
+
+    <select id="searchList" parameterType="MoCustomer" resultMap="MoCustomerResult">
+        <include refid="selectMoCustomerVo"/>
+        <where>  
+            <if test="customerName != null  and customerName != ''"> and customer_name like concat('%', #{customerName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="searchDataById" parameterType="String" resultMap="MoCustomerResult">
+        <include refid="selectMoCustomerVo"/>
+        where customer_code = #{customerCode}
+    </select>
+        
+    <insert id="insertData" parameterType="MoCustomer">
+        insert into mo_customer(customer_code,customer_name,create_by,create_time)
+        values(#{customerCode}, #{customerName}, #{createBy}, NOW()))
+    </insert>
+    
+	<insert id="insertDataList" parameterType="java.util.List">
+	    insert into mo_customer(customer_code,customer_name,create_by,create_time,update_by,update_time) values
+	    <foreach collection="list" item="t" index="index" separator=","> 
+	        (#{t.customerCode}, #{t.customerName}, #{t.createBy}, #{t.createTime}, #{t.updateBy}, #{t.updateTime})
+	    </foreach>
+	    ON DUPLICATE KEY UPDATE customer_code = VALUES(customer_code), customer_name = VALUES(customer_name), create_by = VALUES(create_by), 
+	    						create_time = VALUES(create_time), update_by = VALUES(update_by), update_time = VALUES(update_time)	
+	</insert>
+
+    <update id="updateData" parameterType="MoCustomer">
+        update mo_customer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerName != null and customerName != ''">customer_name = #{customerName},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateBy != null">update_time = Now(),</if>
+        </trim>
+        where customer_code = #{customerCode}
+    </update>
+
+    <delete id="deleteDataById" parameterType="String">
+        delete from mo_customer where customer_code = #{customerCode}
+    </delete>
+
+    <delete id="deleteDataByIds" parameterType="String">
+        delete from mo_customer where customer_code in 
+        <foreach item="customerCode" collection="array" open="(" separator="," close=")">
+            #{customerCode}
+        </foreach>
+    </delete>
+</mapper>

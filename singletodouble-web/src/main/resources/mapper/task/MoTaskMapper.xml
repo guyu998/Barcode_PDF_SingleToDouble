@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.singletodouble.web.mapper.task.MoTaskMapper">
+    
+    <resultMap type="MoTask" id="MoTaskResult">
+        <result property="id"    column="id"    />
+        <result property="custBm"    column="cust_bm"    />
+        <result property="uploadTime"    column="upload_time"    />
+        <result property="fileCount"    column="file_count"    />
+        <result property="pageCount"    column="page_count"    />
+        <result property="dataCount"    column="data_count"    />
+        <result property="handleStatus"    column="handle_status"    />
+        <result property="startHandleTime"    column="start_handle_time"    />
+        <result property="endHandleTime"    column="end_handle_time"    />
+        <result property="costSec"    column="cost_sec"    />
+        <result property="successCount"    column="success_count"    />
+        <result property="printType"    column="print_type"    />
+        <result property="outputFile"    column="output_file"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMoTaskVo">
+        select id, cust_bm, upload_time, file_count, page_count, data_count, handle_status, 
+        start_handle_time, end_handle_time, cost_sec, success_count, print_type, output_file, 
+        create_by, create_time, update_by, update_time 
+        from mo_task
+    </sql>
+
+    <select id="searchList" parameterType="MoTask" resultMap="MoTaskResult">
+        <include refid="selectMoTaskVo"/>
+        <where>  
+            <if test="custBm != null  and custBm != ''"> and cust_bm = #{custBm}</if>
+            <if test="handleStatus != null "> and handle_status = #{handleStatus}</if>
+            <if test="printType != null "> and print_type = #{printType}</if>
+        </where>
+        order by id desc
+    </select>
+    
+    <select id="searchDataById" parameterType="String" resultMap="MoTaskResult">
+        <include refid="selectMoTaskVo"/>
+        where id = #{id}
+    </select>
+    
+    <select id="searchMaxIdOnDate" parameterType="String" resultType="Integer">
+        select Max(SUBSTRING(id, 12, 3))
+		from mo_task
+		where SUBSTRING(id, 1, 10) = #{date}
+    </select>
+        
+    <insert id="insertData" parameterType="MoTask">
+        insert into mo_task(id, cust_bm, upload_time, file_count, page_count, data_count, handle_status, 
+        start_handle_time, end_handle_time, cost_sec, success_count, print_type, output_file, 
+        create_by, create_time)
+		values(#{id},#{custBm},#{uploadTime},#{fileCount},#{pageCount},#{dataCount},#{handleStatus},
+			#{startHandleTime},#{endHandleTime},#{costSec},#{successCount},#{printType},#{outputFile},
+            #{createBy},NOW())
+    </insert>
+
+    <update id="updateData" parameterType="MoTask">
+        update mo_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="custBm != null">cust_bm = #{custBm},</if>
+            <if test="uploadTime != null">upload_time = #{uploadTime},</if>
+            <if test="fileCount != null">file_count = #{fileCount},</if>
+            <if test="pageCount != null">page_count = #{pageCount},</if>
+            <if test="dataCount != null">data_count = #{dataCount},</if>
+            <if test="handleStatus != null">handle_status = #{handleStatus},</if>
+            <if test="startHandleTime != null">start_handle_time = #{startHandleTime},</if>
+            <if test="endHandleTime != null">end_handle_time = #{endHandleTime},</if>
+            <if test="costSec != null">cost_sec = #{costSec},</if>
+            <if test="successCount != null">success_count = #{successCount},</if>
+            <if test="printType != null">print_type = #{printType},</if>
+            <if test="outputFile != null">output_file = #{outputFile},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateBy != null">update_time =NOW(),</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDataById" parameterType="String">
+        delete from mo_task where id = #{id}
+    </delete>
+
+</mapper>

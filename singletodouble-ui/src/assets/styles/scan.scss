@@ -1,0 +1,262 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    background-color: darkgrey;
+  }
+  
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .board-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: calc(100vh - 200px); /* 适应按钮和状态栏 */
+    margin-bottom: 10px;
+  }
+  
+  .board-image {
+    width: 75%;
+    height: auto;
+    text-align: -webkit-center;
+    text-align: center
+  }
+  
+  .board-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  .board-details {
+    width: 24%;
+    padding: 10px;
+    border-style: solid;
+    height: 600px;
+    margin-bottom: 20px;
+  }
+  
+  .board-info {
+    display: block;
+    flex-wrap: wrap;
+    margin-bottom: 0px;
+  }
+  
+  .info-item {
+    width: 90%;
+    font-size: 25px;
+    margin-bottom: 8px;
+  }
+  
+  .inspection-list {
+    width: 100%;
+    height: 430px;
+  }
+  
+  .inspection-header {
+    display: block;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+  
+  .inspection-items {
+    height: 550px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column; /* 竖向排列 */
+  }
+  
+  .inspection-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+    border-style: solid;
+    border-width: 1px;
+  }
+  
+  .inspection-column {
+    width: 33%;
+  }
+  .inspection-column1 {
+    width: 90%;
+  }
+  .inspection-column2 {
+    width: 250px;
+    margin-bottom: 10px;
+  }
+  .inspection-items .inspection-column {
+    width: 33%;
+    // border-right: 1px solid #000; /* 添加右侧边框 */
+    padding: 5px; /* 内边距让文本不紧贴边框 */
+    display: inline-block; /* 让元素并排显示 */
+  }
+  .controls {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    padding: 0 20px;
+  }
+  
+  .square-button {
+    border-radius: 5px;
+    width: 160px;
+    height: 50px;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  .status-bar {
+    line-height: 110px;
+    height: 130px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 50px
+  }
+
+  .custom-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+    z-index: 1000;
+  }
+  
+  .dialog-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .dialog-content h3 {
+    margin-bottom: 20px;
+  }
+
+  .fullscreen-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 背景颜色可调整 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保它覆盖所有其他元素 */
+  }
+  
+  .fullscreen-image-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    cursor: pointer;
+  }
+
+  .el-button--small{
+    padding: 5px;
+    font-size: 18px;
+  }
+
+  .optionButton{
+    font-size: 28px;
+    font-weight: bold;
+    min-height: 55px;
+    width: 200px;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    
+  white-space: normal; /* 或者使用 pre-wrap */
+  overflow-wrap: break-word; /* 确保单词内换行 */
+  word-break: break-word; /* 在单词内允许断行 */
+  }
+
+  .el-dialog__title{
+    font-size: 28px;
+  }
+
+
+  .repair-div {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .scan-section {
+    margin-bottom: 10px;
+    display: block;
+    font-size: 20px;
+    justify-content: space-between;
+  }
+  
+  .left-col, .right-col {
+    text-align: left;
+    height: 30px;
+    padding: 5px;
+  }
+  
+  .repair-reason-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .repair-reason-list, .repair-details-list {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    height: 420px;
+    overflow-y: auto;
+  }
+
+  .repair-reason-list-div, .repair-details-list-div {
+    display: flex;
+    font-size: 20px;
+    flex-direction: column;
+    width: 100%;
+    height: 380px;
+    overflow-y: auto;
+  }
+  
+  button {
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+  
+  button.selected {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .confirm-section {
+    margin-top: 20px;
+  }
+
+  .el-button.is-selected {
+    background-color: #409EFF; /* 选中时的背景颜色 */
+    border-color: #409EFF;     /* 选中时的边框颜色 */
+    color: white;              /* 选中时的文字颜色 */
+  }
+  
+  .el-button.is-selected:hover {
+    background-color: #66b1ff; /* 鼠标悬停时的背景颜色 */
+    border-color: #66b1ff;     /* 鼠标悬停时的边框颜色 */
+  }

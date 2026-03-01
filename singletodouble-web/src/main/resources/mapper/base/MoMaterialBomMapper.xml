@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.singletodouble.web.mapper.base.MoMaterialBomMapper">
+    
+    <resultMap type="MoMaterialBom" id="MoMaterialBomResult">
+        <id property="makerMatNo"    column="maker_mat_no"    />
+        <id property="custMatNo"    column="cust_mat_no"    />
+        <id property="custColorCode"    column="cust_color_code"    />
+        <id property="orderNo"    column="order_no"    />
+        <result property="partName"    column="part_name"    />
+        <result property="backNo"    column="back_no"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMoMaterialBomVo">
+        select maker_mat_no, cust_mat_no, cust_color_code, order_no, part_name, back_no, 
+        create_by, create_time, update_by, update_time 
+        from mo_material_bom
+    </sql>
+
+    <select id="searchList" parameterType="MoMaterialBom" resultMap="MoMaterialBomResult">
+        <include refid="selectMoMaterialBomVo"/>
+        <where>  
+            <if test="makerMatNo != null  and makerMatNo != ''"> and maker_mat_no = #{makerMatNo}</if>
+            <if test="custMatNo != null  and custMatNo != ''"> and cust_mat_no = #{custMatNo}</if>
+            <if test="custColorCode != null  and custColorCode != ''"> and cust_color_code = #{custColorCode}</if>
+            <if test="orderNo != null  and orderNo != 0"> and order_no = #{orderNo}</if>
+        </where>
+    </select>
+    
+    <select id="searchDataById" parameterType="MoMaterialBom" resultMap="MoMaterialBomResult">
+        <include refid="selectMoMaterialBomVo"/>
+        where maker_mat_no = #{makerMatNo} and cust_mat_no = #{custMatNo} and 
+        cust_color_code = #{custColorCode} and order_no = #{orderNo}
+    </select>
+        
+    <insert id="insertData" parameterType="MoMaterialBom">
+        insert into mo_material_bom(maker_mat_no, cust_mat_no, cust_color_code, order_no, part_name, back_no, create_by, create_time)
+		values(#{makerMatNo},#{custMatNo},#{custColorCode},#{orderNo},#{partName},#{backNo},#{createBy},NOW())
+    </insert>
+    
+	<insert id="insertDataList" parameterType="java.util.List">
+        insert into mo_material_bom(maker_mat_no, cust_mat_no, cust_color_code, order_no, part_name, back_no, create_by, create_time, update_by, update_time)
+        values
+	    <foreach collection="list" item="t" index="index" separator=","> 
+	        (#{t.makerMatNo}, #{t.custMatNo},#{t.custColorCode},#{t.orderNo},#{t.partName},#{t.backNo},#{t.createBy},#{t.createTime}, #{t.updateBy}, #{t.updateTime})
+	    </foreach>
+	    ON DUPLICATE KEY UPDATE 
+	    part_name = VALUES(part_name), back_no = VALUES(back_no), create_by = VALUES(create_by), create_time = VALUES(create_time),
+		update_by = VALUES(update_by), update_time = VALUES(update_time)	
+	</insert>  
+
+    <update id="updateData" parameterType="MoMaterialBom">
+        update mo_material_bom
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="partName != null">part_name = #{partName},</if>
+            <if test="backNo != null">back_no = #{backNo},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where maker_mat_no = #{makerMatNo} and cust_mat_no = #{custMatNo} and 
+        cust_color_code = #{custColorCode} and order_no = #{orderNo}
+    </update>
+
+    <delete id="deleteDataById" parameterType="MoMaterialBom">
+        delete from mo_material_bom
+        <where>  
+            <if test="makerMatNo != null  and makerMatNo != ''"> and maker_mat_no = #{makerMatNo}</if>
+            <if test="custMatNo != null  and custMatNo != ''"> and cust_mat_no = #{custMatNo}</if>
+            <if test="custColorCode != null  and custColorCode != ''"> and cust_color_code = #{custColorCode}</if>
+            <if test="orderNo != null  and orderNo != 0"> and order_no = #{orderNo}</if>
+        </where>
+    </delete>
+
+</mapper>

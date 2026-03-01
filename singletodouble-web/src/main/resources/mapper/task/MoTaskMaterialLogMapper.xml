@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.singletodouble.web.mapper.task.MoTaskMaterialLogMapper">
+    
+    <resultMap type="MoTaskMaterialLog" id="MoTaskMaterialLogResult">
+        <id property="taskId"    column="task_id"    />
+        <id property="dataNo"    column="data_no"    />
+        <result property="log"    column="log"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMoTaskMaterialLogVo">
+        select task_id, data_no, log, create_by, create_time, update_by, update_time 
+        from mo_task_material_log
+    </sql>
+
+    <select id="searchList" parameterType="MoTaskMaterialLog" resultMap="MoTaskMaterialLogResult">
+        <include refid="selectMoTaskMaterialLogVo"/>
+        <where>  
+            <if test="taskId != null  and taskId != ''"> and task_id = #{taskId}</if>
+            <if test="dataNo != null  and dataNo != 0"> and data_no = #{dataNo}</if>
+        </where>
+    </select>
+    
+    <select id="searchDataById" parameterType="MoTaskMaterialLog" resultMap="MoTaskMaterialLogResult">
+        <include refid="selectMoTaskMaterialLogVo"/>
+        where task_id = #{taskId} and data_no = #{dataNo}
+    </select>
+        
+    <insert id="insertData" parameterType="MoTaskMaterialLog">
+        insert into mo_task_material_log(task_id, data_no, log, create_by, create_time)
+		values(#{taskId},#{dataNo},#{log},#{createBy},NOW())
+    </insert>
+    
+	<insert id="insertDataList" parameterType="java.util.List">
+        insert into mo_task_material_log(task_id, data_no, log, create_by, create_time)
+        values
+	    <foreach collection="list" item="t" index="index" separator=","> 
+	        (#{t.taskId}, #{t.dataNo},#{t.log},#{t.createBy},NOW())
+	    </foreach>
+	</insert>
+
+    <update id="updateData" parameterType="MoTaskMaterialLog">
+        update mo_task_material_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="log != null">log = #{log},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateBy != null">update_time = NOW(),</if>
+        </trim>
+        where task_id = #{taskId} and data_no = #{dataNo}
+    </update>
+
+    <delete id="deleteDataById" parameterType="MoTaskMaterialLog">
+        delete from mo_task_material_log 
+        <where>
+        	<if test="taskId != null  and taskId != ''"> and task_id = #{taskId}</if>
+        	<if test="dataNo != null  and dataNo != 0"> and data_no = #{dataNo}</if>
+        </where>
+    </delete>
+
+</mapper>

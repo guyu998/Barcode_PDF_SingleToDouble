@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.singletodouble.web.mapper.base.MoMaterialMapper">
+    
+    <resultMap type="MoMaterial" id="MoMaterialResult">
+    	<id property="makerMatNo"    column="maker_mat_no"    />
+    	<id property="custMatNo"    column="cust_mat_no"    />
+    	<id property="custColorCode"    column="cust_color_code"    />
+        <result property="makerBm"    column="maker_bm"    />
+        <result property="makerShortName"    column="maker_short_name"    />
+        <result property="makerBackNo"    column="maker_back_no"    />
+        <result property="makerMatName"    column="maker_mat_name"    />
+        <result property="makerMatNameEn"    column="maker_mat_name_en"    />
+        <result property="makerColorCode"    column="maker_color_code"    />
+        <result property="makerColor"    column="maker_color"    />
+        <result property="makerSnp"    column="maker_snp"    />
+        <result property="makerCalUnit"    column="maker_cal_unit"    />
+        <result property="makerBuyUnit"    column="maker_buy_unit"    />
+        <result property="makerSpecModel"    column="maker_spec_model"    />
+        <result property="makerMatCatg"    column="maker_mat_catg"    />
+        <result property="makerLeftRightFlag"    column="maker_left_right_flag"    />
+        <result property="makerImpProtectFlag"    column="maker_imp_protect_flag"    />
+        <result property="makerCarModel"    column="maker_car_model"    />
+        <result property="makerCarPerQty"    column="maker_car_per_qty"    />
+        <result property="makerPlacePos"    column="maker_place_pos"    />
+        <result property="makerPostProc"    column="maker_post_proc"    />
+        <result property="makerPackBm"    column="maker_pack_bm"    />
+        <result property="makerPackRate"    column="maker_pack_rate"    />
+        <result property="makerPackGroup"    column="maker_pack_group"    />
+        <result property="makerTrayStdBoxQty"    column="maker_tray_std_box_qty"    />
+        <result property="makerInitStockType"    column="maker_init_stock_type"    />
+        <result property="makerLabelColor"    column="maker_label_color"    />
+        <result property="makerLabelTmpl"    column="maker_label_tmpl"    />
+        <result property="makerMatLabelTmpl"    column="maker_mat_label_tmpl"    />
+        <result property="makerModTmpl"    column="maker_mod_tmpl"    />
+        <result property="makerUseFlag"    column="maker_use_flag"    />
+        <result property="makerLine"    column="maker_line"    />
+        <result property="makerBackup1"    column="maker_backup1"    />
+        <result property="makerBackup2"    column="maker_backup2"    />
+        <result property="makerBackup3"    column="maker_backup3"    />
+        <result property="stockDown"    column="stock_down"    />
+        <result property="stockUp"    column="stock_up"    />
+        <result property="holdTimeMin"    column="hold_time_min"    />
+        <result property="holdTimeMax"    column="hold_time_max"    />
+        <result property="custBm"    column="cust_bm"    />
+        <result property="custShortName"    column="cust_short_name"    />        
+        <result property="custBackNo"    column="cust_back_no"    />
+        <result property="custMatName"    column="cust_mat_name"    />
+        <result property="custMatNameEn"    column="cust_mat_name_en"    />
+        <result property="custColor"    column="cust_color"    />
+        <result property="custSnp"    column="cust_snp"    />
+        <result property="custCalUnit"    column="cust_cal_unit"    />
+        <result property="custBuyUnit"    column="cust_buy_unit"    />
+        <result property="custSpecModel"    column="cust_spec_model"    />
+        <result property="custMatCatg"    column="cust_mat_catg"    />
+        <result property="custLeftRightFlag"    column="cust_left_right_flag"    />
+        <result property="custImpProtectFlag"    column="cust_imp_protect_flag"    />
+        <result property="custCarModel"    column="cust_car_model"    />
+        <result property="custCarPerQty"    column="cust_car_per_qty"    />
+        <result property="custPlacePos"    column="cust_place_pos"    />
+        <result property="custPostProc"    column="cust_post_proc"    />
+        <result property="custPackBm"    column="cust_pack_bm"    />
+        <result property="custPackRate"    column="cust_pack_rate"    />
+        <result property="custPackGroup"    column="cust_pack_group"    />
+        <result property="custLabelColor"    column="cust_label_color"    />
+        <result property="custLabelTmpl"    column="cust_label_tmpl"    />
+        <result property="custMatLabelTmpl"    column="cust_mat_label_tmpl"    />
+        <result property="custModTmpl"    column="cust_mod_tmpl"    />
+        <result property="custUseFlag"    column="cust_use_flag"    />
+        <result property="custBackup1"    column="cust_backup1"    />
+        <result property="custBackup2"    column="cust_backup2"    />
+        <result property="custBackup3"    column="cust_backup3"    />
+        <result property="prepareLeadTime"    column="prepare_lead_time"    />
+        <result property="sendLeadTime"    column="send_lead_time"    />
+        <result property="makerCal"    column="maker_cal"    />
+        <result property="makerLineBm"    column="maker_line_bm"    />
+        <result property="matOrder"    column="mat_order"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <!-- 配置一对多关联：-->
+        <collection property="bomList" ofType="com.singletodouble.web.domain.base.MoMaterialBom">
+	        <id property="makerMatNo"    column="maker_mat_no1"    />
+	        <id property="custMatNo"    column="cust_mat_no1"    />
+	        <id property="custColorCode"    column="cust_color_code1"    />
+	        <id property="orderNo"    column="order_no1"    />
+	        <result property="partName"    column="part_name"    />
+	        <result property="backNo"    column="back_no1"    />
+        </collection>
+    </resultMap>
+
+    <sql id="selectMoMaterialVo">
+        select maker_bm, maker_short_name, maker_mat_no, maker_back_no, maker_mat_name, maker_mat_name_en, 
+        maker_color_code, maker_color, maker_snp, maker_cal_unit, maker_buy_unit, maker_spec_model, 
+        maker_mat_catg, maker_left_right_flag, maker_imp_protect_flag, maker_car_model, maker_car_per_qty, 
+        maker_place_pos, maker_post_proc, maker_pack_bm, maker_pack_rate, maker_pack_group, maker_tray_std_box_qty, 
+        maker_init_stock_type, maker_label_color, maker_label_tmpl, maker_mat_label_tmpl, maker_mod_tmpl, 
+        maker_use_flag, maker_line, maker_backup1, maker_backup2, maker_backup3, stock_down, stock_up, 
+        hold_time_min, hold_time_max, cust_bm, cust_short_name, cust_mat_no, cust_back_no, cust_mat_name, 
+        cust_mat_name_en, cust_color_code, cust_color, cust_snp, cust_cal_unit, cust_buy_unit, cust_spec_model, 
+        cust_mat_catg, cust_left_right_flag, cust_imp_protect_flag, cust_car_model, cust_car_per_qty, cust_place_pos, 
+        cust_post_proc, cust_pack_bm, cust_pack_rate, cust_pack_group, cust_label_color, cust_label_tmpl, 
+        cust_mat_label_tmpl, cust_mod_tmpl, cust_use_flag, cust_backup1, cust_backup2, cust_backup3, prepare_lead_time, 
+        send_lead_time, maker_cal, maker_line_bm, mat_order, create_by, create_time, update_by, update_time 
+        from mo_material
+    </sql>
+
+    <select id="searchList" parameterType="MoMaterial" resultMap="MoMaterialResult">
+        <include refid="selectMoMaterialVo"/>
+        <where>  
+            <if test="makerBm != null  and makerBm != ''"> and maker_bm = #{makerBm}</if>
+            <if test="makerMatNo != null  and makerMatNo != ''"> and maker_mat_no = #{makerMatNo}</if>
+            <if test="makerSnp != null "> and maker_snp = #{makerSnp}</if>
+            <if test="custBm != null  and custBm != ''"> and cust_bm = #{custBm}</if>
+            <if test="custMatNo != null  and custMatNo != ''"> and cust_mat_no = #{custMatNo}</if>           
+            <if test="custSnp != null "> and cust_snp = #{custSnp}</if>
+        </where>
+    </select>
+    
+    <select id="searchDataById" parameterType="MoMaterial" resultMap="MoMaterialResult">
+        select a.*, b.maker_mat_no as maker_mat_no1, b.cust_mat_no as cust_mat_no1, b.cust_color_code as cust_color_code1,
+        b.order_no as order_no1, b.part_name, b.back_no as back_no1
+        from mo_material a left join mo_material_bom b on a.maker_mat_no=b.maker_mat_no and a.cust_mat_no=b.cust_mat_no and a.cust_color_code=b.cust_color_code
+        where a.maker_mat_no = #{makerMatNo} and a.cust_mat_no = #{custMatNo} and a.cust_color_code = #{custColorCode}
+    </select>
+        
+    <insert id="insertData" parameterType="MoMaterial">
+        insert into mo_material(maker_bm, maker_short_name, maker_mat_no, maker_back_no, maker_mat_name, maker_mat_name_en, 
+        maker_color_code, maker_color, maker_snp, maker_cal_unit, maker_buy_unit, maker_spec_model, 
+        maker_mat_catg, maker_left_right_flag, maker_imp_protect_flag, maker_car_model, maker_car_per_qty, 
+        maker_place_pos, maker_post_proc, maker_pack_bm, maker_pack_rate, maker_pack_group, maker_tray_std_box_qty, 
+        maker_init_stock_type, maker_label_color, maker_label_tmpl, maker_mat_label_tmpl, maker_mod_tmpl, 
+        maker_use_flag, maker_line, maker_backup1, maker_backup2, maker_backup3, stock_down, stock_up, 
+        hold_time_min, hold_time_max, cust_bm, cust_short_name, cust_mat_no, cust_back_no, cust_mat_name, 
+        cust_mat_name_en, cust_color_code, cust_color, cust_snp, cust_cal_unit, cust_buy_unit, cust_spec_model, 
+        cust_mat_catg, cust_left_right_flag, cust_imp_protect_flag, cust_car_model, cust_car_per_qty, cust_place_pos, 
+        cust_post_proc, cust_pack_bm, cust_pack_rate, cust_pack_group, cust_label_color, cust_label_tmpl, 
+        cust_mat_label_tmpl, cust_mod_tmpl, cust_use_flag, cust_backup1, cust_backup2, cust_backup3, prepare_lead_time, 
+        send_lead_time, maker_cal, maker_line_bm, mat_order, create_by, create_time)
+		values(#{makerBm}, #{makerShortName},#{makerMatNo},#{makerBackNo},#{makerMatName},#{makerMatNameEn},
+            #{makerColorCode},#{makerColor},#{makerSnp},#{makerCalUnit},#{makerBuyUnit},#{makerSpecModel},
+            #{makerMatCatg},#{makerLeftRightFlag},#{makerImpProtectFlag},#{makerCarModel},#{makerCarPerQty},
+            #{makerPlacePos},#{makerPostProc},#{makerPackBm},#{makerPackRate},#{makerPackGroup},#{makerTrayStdBoxQty},
+            #{makerInitStockType},#{makerLabelColor},#{makerLabelTmpl},#{makerMatLabelTmpl},#{makerModTmpl},
+            #{makerUseFlag},#{makerLine},#{makerBackup1},#{makerBackup2},#{makerBackup3},#{stockDown},#{stockUp},
+            #{holdTimeMin},#{holdTimeMax},#{custBm},#{custShortName},#{custMatNo},#{custBackNo},#{custMatName},
+            #{custMatNameEn},#{custColorCode},#{custColor},#{custSnp},#{custCalUnit},#{custBuyUnit},#{custSpecModel},
+            #{custMatCatg},#{custLeftRightFlag},#{custImpProtectFlag},#{custCarModel},#{custCarPerQty},#{custPlacePos},
+            #{custPostProc},#{custPackBm},#{custPackRate},#{custPackGroup}, #{custLabelColor},#{custLabelTmpl},
+            #{custMatLabelTmpl},#{custModTmpl},#{custUseFlag}, #{custBackup1},#{custBackup2},#{custBackup3},#{prepareLeadTime},
+            #{sendLeadTime},#{makerCal},#{makerLineBm},#{matOrder},#{createBy},NOW())
+    </insert>
+    
+	<insert id="insertDataList" parameterType="java.util.List">
+        insert into mo_material(maker_bm, maker_short_name, maker_mat_no, maker_back_no, maker_mat_name, maker_mat_name_en, 
+        maker_color_code, maker_color, maker_snp, maker_cal_unit, maker_buy_unit, maker_spec_model, 
+        maker_mat_catg, maker_left_right_flag, maker_imp_protect_flag, maker_car_model, maker_car_per_qty, 
+        maker_place_pos, maker_post_proc, maker_pack_bm, maker_pack_rate, maker_pack_group, maker_tray_std_box_qty, 
+        maker_init_stock_type, maker_label_color, maker_label_tmpl, maker_mat_label_tmpl, maker_mod_tmpl, 
+        maker_use_flag, maker_line, maker_backup1, maker_backup2, maker_backup3, stock_down, stock_up, 
+        hold_time_min, hold_time_max, cust_bm, cust_short_name, cust_mat_no, cust_back_no, cust_mat_name, 
+        cust_mat_name_en, cust_color_code, cust_color, cust_snp, cust_cal_unit, cust_buy_unit, cust_spec_model, 
+        cust_mat_catg, cust_left_right_flag, cust_imp_protect_flag, cust_car_model, cust_car_per_qty, cust_place_pos, 
+        cust_post_proc, cust_pack_bm, cust_pack_rate, cust_pack_group, cust_label_color, cust_label_tmpl, 
+        cust_mat_label_tmpl, cust_mod_tmpl, cust_use_flag, cust_backup1, cust_backup2, cust_backup3, prepare_lead_time, 
+        send_lead_time, maker_cal, maker_line_bm, mat_order, create_by, create_time,update_by,update_time)
+        values
+	    <foreach collection="list" item="t" index="index" separator=","> 
+	        (#{t.makerBm}, #{t.makerShortName},#{t.makerMatNo},#{t.makerBackNo},#{t.makerMatName},#{t.makerMatNameEn},
+            #{t.makerColorCode},#{t.makerColor},#{t.makerSnp},#{t.makerCalUnit},#{t.makerBuyUnit},#{t.makerSpecModel},
+            #{t.makerMatCatg},#{t.makerLeftRightFlag},#{t.makerImpProtectFlag},#{t.makerCarModel},#{t.makerCarPerQty},
+            #{t.makerPlacePos},#{t.makerPostProc},#{t.makerPackBm},#{t.makerPackRate},#{t.makerPackGroup},#{t.makerTrayStdBoxQty},
+            #{t.makerInitStockType},#{t.makerLabelColor},#{t.makerLabelTmpl},#{t.makerMatLabelTmpl},#{t.makerModTmpl},
+            #{t.makerUseFlag},#{t.makerLine},#{t.makerBackup1},#{t.makerBackup2},#{t.makerBackup3},#{t.stockDown},#{t.stockUp},
+            #{t.holdTimeMin},#{t.holdTimeMax},#{t.custBm},#{t.custShortName},#{t.custMatNo},#{t.custBackNo},#{t.custMatName},
+            #{t.custMatNameEn},#{t.custColorCode},#{t.custColor},#{t.custSnp},#{t.custCalUnit},#{t.custBuyUnit},#{t.custSpecModel},
+            #{t.custMatCatg},#{t.custLeftRightFlag},#{t.custImpProtectFlag},#{t.custCarModel},#{t.custCarPerQty},#{t.custPlacePos},
+            #{t.custPostProc},#{t.custPackBm},#{t.custPackRate},#{t.custPackGroup}, #{t.custLabelColor},#{t.custLabelTmpl},
+            #{t.custMatLabelTmpl},#{t.custModTmpl},#{t.custUseFlag}, #{t.custBackup1},#{t.custBackup2},#{t.custBackup3},#{t.prepareLeadTime},
+            #{t.sendLeadTime},#{t.makerCal},#{t.makerLineBm},#{t.matOrder},#{t.createBy},#{t.createTime}, #{t.updateBy}, #{t.updateTime})
+	    </foreach>
+	    ON DUPLICATE KEY UPDATE 
+	    maker_bm = VALUES(maker_bm), maker_short_name = VALUES(maker_short_name), maker_back_no = VALUES(maker_back_no),
+	    maker_mat_name = VALUES(maker_mat_name), maker_mat_name_en = VALUES(maker_mat_name_en), maker_color_code = VALUES(maker_color_code),
+	    maker_color = VALUES(maker_color), maker_snp = VALUES(maker_snp), maker_cal_unit = VALUES(maker_cal_unit),
+	    maker_buy_unit = VALUES(maker_buy_unit), maker_spec_model = VALUES(maker_spec_model), maker_mat_catg = VALUES(maker_mat_catg),
+	    maker_left_right_flag = VALUES(maker_left_right_flag), maker_imp_protect_flag = VALUES(maker_imp_protect_flag), maker_car_model = VALUES(maker_car_model),
+	    maker_car_per_qty = VALUES(maker_car_per_qty), maker_place_pos = VALUES(maker_place_pos), maker_post_proc = VALUES(maker_post_proc),
+	    maker_pack_bm = VALUES(maker_pack_bm), maker_pack_rate = VALUES(maker_pack_rate), maker_pack_group = VALUES(maker_pack_group),
+	    maker_tray_std_box_qty = VALUES(maker_tray_std_box_qty), maker_init_stock_type = VALUES(maker_init_stock_type), maker_label_color = VALUES(maker_label_color),
+	    maker_label_tmpl = VALUES(maker_label_tmpl), maker_mat_label_tmpl = VALUES(maker_mat_label_tmpl), maker_mod_tmpl = VALUES(maker_mod_tmpl),
+	    maker_use_flag = VALUES(maker_use_flag), maker_line = VALUES(maker_line), maker_backup1 = VALUES(maker_backup1),
+	    maker_backup2 = VALUES(maker_backup2), maker_backup3 = VALUES(maker_backup3), stock_down = VALUES(stock_down),
+	    stock_up = VALUES(stock_up), hold_time_min = VALUES(hold_time_min), hold_time_max = VALUES(hold_time_max),
+	    cust_bm = VALUES(cust_bm), cust_short_name = VALUES(cust_short_name), cust_back_no = VALUES(cust_back_no),	    
+	    cust_mat_name = VALUES(cust_mat_name), cust_mat_name_en = VALUES(cust_mat_name_en), 
+	    cust_color = VALUES(cust_color), cust_snp = VALUES(cust_snp), cust_cal_unit = VALUES(cust_cal_unit),
+	    cust_buy_unit = VALUES(cust_buy_unit), cust_spec_model = VALUES(cust_spec_model), cust_mat_catg = VALUES(cust_mat_catg),
+	    cust_left_right_flag = VALUES(cust_left_right_flag), cust_imp_protect_flag = VALUES(cust_imp_protect_flag), cust_car_model = VALUES(cust_car_model),
+	    cust_car_per_qty = VALUES(cust_car_per_qty), cust_place_pos = VALUES(cust_place_pos), cust_post_proc = VALUES(cust_post_proc),	    
+	    cust_pack_bm = VALUES(cust_pack_bm), cust_pack_rate = VALUES(cust_pack_rate), cust_pack_group = VALUES(cust_pack_group),
+	    cust_label_color = VALUES(cust_label_color), cust_label_tmpl = VALUES(cust_label_tmpl), cust_mat_label_tmpl = VALUES(cust_mat_label_tmpl),
+	    cust_mod_tmpl = VALUES(cust_mod_tmpl), cust_use_flag = VALUES(cust_use_flag), cust_backup1 = VALUES(cust_backup1),
+	    cust_backup2 = VALUES(cust_backup2), cust_backup3 = VALUES(cust_backup3), prepare_lead_time = VALUES(prepare_lead_time),
+	    send_lead_time = VALUES(send_lead_time), maker_cal = VALUES(maker_cal), maker_line_bm = VALUES(maker_line_bm),
+	    mat_order = VALUES(mat_order), create_by = VALUES(create_by), create_time = VALUES(create_time),
+		update_by = VALUES(update_by), update_time = VALUES(update_time)	
+	</insert>    
+
+    <update id="updateData" parameterType="MoMaterial">
+        update mo_material
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="makerBm != null">maker_bm = #{makerBm},</if>
+            <if test="makerShortName != null">maker_short_name = #{makerShortName},</if>
+            <if test="makerBackNo != null">maker_back_no = #{makerBackNo},</if>
+            <if test="makerMatName != null">maker_mat_name = #{makerMatName},</if>
+            <if test="makerMatNameEn != null">maker_mat_name_en = #{makerMatNameEn},</if>
+            <if test="makerColorCode != null">maker_color_code = #{makerColorCode},</if>
+            <if test="makerColor != null">maker_color = #{makerColor},</if>
+            <if test="makerSnp != null">maker_snp = #{makerSnp},</if>
+            <if test="makerCalUnit != null">maker_cal_unit = #{makerCalUnit},</if>
+            <if test="makerBuyUnit != null">maker_buy_unit = #{makerBuyUnit},</if>
+            <if test="makerSpecModel != null">maker_spec_model = #{makerSpecModel},</if>
+            <if test="makerMatCatg != null">maker_mat_catg = #{makerMatCatg},</if>
+            <if test="makerLeftRightFlag != null">maker_left_right_flag = #{makerLeftRightFlag},</if>
+            <if test="makerImpProtectFlag != null">maker_imp_protect_flag = #{makerImpProtectFlag},</if>
+            <if test="makerCarModel != null">maker_car_model = #{makerCarModel},</if>
+            <if test="makerCarPerQty != null">maker_car_per_qty = #{makerCarPerQty},</if>
+            <if test="makerPlacePos != null">maker_place_pos = #{makerPlacePos},</if>
+            <if test="makerPostProc != null">maker_post_proc = #{makerPostProc},</if>
+            <if test="makerPackBm != null">maker_pack_bm = #{makerPackBm},</if>
+            <if test="makerPackRate != null">maker_pack_rate = #{makerPackRate},</if>
+            <if test="makerPackGroup != null">maker_pack_group = #{makerPackGroup},</if>
+            <if test="makerTrayStdBoxQty != null">maker_tray_std_box_qty = #{makerTrayStdBoxQty},</if>
+            <if test="makerInitStockType != null">maker_init_stock_type = #{makerInitStockType},</if>
+            <if test="makerLabelColor != null">maker_label_color = #{makerLabelColor},</if>
+            <if test="makerLabelTmpl != null">maker_label_tmpl = #{makerLabelTmpl},</if>
+            <if test="makerMatLabelTmpl != null">maker_mat_label_tmpl = #{makerMatLabelTmpl},</if>
+            <if test="makerModTmpl != null">maker_mod_tmpl = #{makerModTmpl},</if>
+            <if test="makerUseFlag != null">maker_use_flag = #{makerUseFlag},</if>
+            <if test="makerLine != null">maker_line = #{makerLine},</if>
+            <if test="makerBackup1 != null">maker_backup1 = #{makerBackup1},</if>
+            <if test="makerBackup2 != null">maker_backup2 = #{makerBackup2},</if>
+            <if test="makerBackup3 != null">maker_backup3 = #{makerBackup3},</if>
+            <if test="stockDown != null">stock_down = #{stockDown},</if>
+            <if test="stockUp != null">stock_up = #{stockUp},</if>
+            <if test="holdTimeMin != null">hold_time_min = #{holdTimeMin},</if>
+            <if test="holdTimeMax != null">hold_time_max = #{holdTimeMax},</if>
+            <if test="custBm != null">cust_bm = #{custBm},</if>
+            <if test="custShortName != null">cust_short_name = #{custShortName},</if>
+            <if test="custBackNo != null">cust_back_no = #{custBackNo},</if>
+            <if test="custMatName != null">cust_mat_name = #{custMatName},</if>
+            <if test="custMatNameEn != null">cust_mat_name_en = #{custMatNameEn},</if>
+            <if test="custColor != null">cust_color = #{custColor},</if>
+            <if test="custSnp != null">cust_snp = #{custSnp},</if>
+            <if test="custCalUnit != null">cust_cal_unit = #{custCalUnit},</if>
+            <if test="custBuyUnit != null">cust_buy_unit = #{custBuyUnit},</if>
+            <if test="custSpecModel != null">cust_spec_model = #{custSpecModel},</if>
+            <if test="custMatCatg != null">cust_mat_catg = #{custMatCatg},</if>
+            <if test="custLeftRightFlag != null">cust_left_right_flag = #{custLeftRightFlag},</if>
+            <if test="custImpProtectFlag != null">cust_imp_protect_flag = #{custImpProtectFlag},</if>
+            <if test="custCarModel != null">cust_car_model = #{custCarModel},</if>
+            <if test="custCarPerQty != null">cust_car_per_qty = #{custCarPerQty},</if>
+            <if test="custPlacePos != null">cust_place_pos = #{custPlacePos},</if>
+            <if test="custPostProc != null">cust_post_proc = #{custPostProc},</if>
+            <if test="custPackBm != null">cust_pack_bm = #{custPackBm},</if>
+            <if test="custPackRate != null">cust_pack_rate = #{custPackRate},</if>
+            <if test="custPackGroup != null">cust_pack_group = #{custPackGroup},</if>
+            <if test="custLabelColor != null">cust_label_color = #{custLabelColor},</if>
+            <if test="custLabelTmpl != null">cust_label_tmpl = #{custLabelTmpl},</if>
+            <if test="custMatLabelTmpl != null">cust_mat_label_tmpl = #{custMatLabelTmpl},</if>
+            <if test="custModTmpl != null">cust_mod_tmpl = #{custModTmpl},</if>
+            <if test="custUseFlag != null">cust_use_flag = #{custUseFlag},</if>
+            <if test="custBackup1 != null">cust_backup1 = #{custBackup1},</if>
+            <if test="custBackup2 != null">cust_backup2 = #{custBackup2},</if>
+            <if test="custBackup3 != null">cust_backup3 = #{custBackup3},</if>
+            <if test="prepareLeadTime != null">prepare_lead_time = #{prepareLeadTime},</if>
+            <if test="sendLeadTime != null">send_lead_time = #{sendLeadTime},</if>
+            <if test="makerCal != null">maker_cal = #{makerCal},</if>
+            <if test="makerLineBm != null">maker_line_bm = #{makerLineBm},</if>
+            <if test="matOrder != null">mat_order = #{matOrder},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateBy != null">update_time = NOW(),</if>
+        </trim>
+        where maker_mat_no = #{makerMatNo} and cust_mat_no = #{custMatNo} and cust_color_code = #{custColorCode}
+    </update>
+
+    <delete id="deleteDataById" parameterType="MoMaterial">
+        delete from mo_material where maker_mat_no = #{makerMatNo} and cust_mat_no = #{custMatNo} and cust_color_code = #{custColorCode}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,96 @@
+server:
+ port: 3006
+ tomcat.uri-encoding: UTF-8
+
+
+spring:
+ jackson:
+   #设置空如何序列化
+   time-zone: GMT+8
+   date-format: yyyy-MM-dd HH:mm:ss
+   default-property-inclusion: always
+
+ datasource:
+        name: storage_dev
+        url: jdbc:mysql://118.195.162.74:3306/storage_dev?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
+        username: root
+        password: Guyu999888
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+   ##不能小于30秒，否则默认回到1800秒
+        hikari:
+          max-lifetime: 30000
+ redis:
+     database: 0
+     host: 118.195.162.74
+     #host: 192.168.1.120
+     port: 6379
+     #password: 123456
+
+     timeout: 50000ms
+     lettuce:
+       pool:
+         max-active: 8
+         max-wait: -1ms
+         max-idle: 5
+         min-idle: 0
+
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      show-details: ALWAYS
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml,classpath*:mappers/**/*.xml
+  type-aliases-package: com.painting.entity
+  configuration:
+       map-underscore-to-camel-case: true
+       callSettersOnNulls: true
+       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    root: info
+#  pattern:
+#    file: ./log/log.log
+
+jwt:
+  issuer: awesomeApp
+  base64EncodedSecretKey: awesomeSecretKey
+cors:
+  allowedOrigins: "*"
+  allowedMethods: GET,POST,DELETE,PUT,OPTIONS
+  allowedHeaders: Origin,X-Requested-With,Content-Type,Accept,Accept-Encoding,Accept-Language,Host,Referer,Connection,User-Agent,Authorization
+org:
+  quartz:
+    threadPool.class: org.quartz.simpl.SimpleThreadPool
+    threadPool.threadCount: 10
+    threadPool.threadPriority: 5
+    threadPool.threadsInheritContextClassLoaderOfInitializingThread: true
+    scheduler.makeSchedulerThreadDaemon: true
+
+token:
+  header: token
+  secret: lehusmartwarehousing
+  expireTime: 1440000
+  padExpireTime: 1440000
+
+kingDie:
+  #baseUrl: http://118.195.162.74/K3Cloud/
+  #http://123.57.229.88/K3Cloud/
+  #accId: 6243f01b3cc88d
+  baseUrl: https://phoenix-arts.ik3cloud.com/k3cloud/
+  #http://123.57.229.88/K3Cloud/
+  accId: 61b2193e1b2e59
+
+Print:
+  url: 192.168.1.131
+  port: 6101
